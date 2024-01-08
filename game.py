@@ -6,6 +6,7 @@ from asteroid import Asteroid
 import pygame
 from spaceship import Spaceship
 from asteroid import Asteroid
+from menu import Menu
 
 
 class Game:
@@ -20,6 +21,7 @@ class Game:
         self.run = False
         self.score = 0
         self.records = 0
+        self.menu = Menu()
         self.load_records()
         self.killed_music = pygame.mixer.Sound('music/killed_music.mp3')
         pygame.mixer.music.load('music/music (2).mp3')
@@ -48,9 +50,10 @@ class Game:
                 if pygame.sprite.spritecollide(asteroid, self.spaceship_group, False):
                     self.game_over()
                     self.score = 0
-
     def game_over(self):
         self.run = False
+        self.lives = 3
+        self.asteroids_group.empty()
 
     def reset(self):
         self.run = True

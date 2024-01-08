@@ -44,6 +44,7 @@ while True:
                 menu.switch(1)
             elif event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
                 menu.select()
+
         if game.run == False:
             menu.draw(screen, 100, 100, 75)
             pygame.display.flip()
@@ -59,9 +60,6 @@ while True:
             game.check_for_collisions()
 
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_RETURN] and game.run == False:
-            game.reset()
-
         screen.blit(image_fons, (0, 0))
         if game.lives == 3:
             screen.blit(heart_image, (691, 0))
@@ -72,6 +70,8 @@ while True:
             screen.blit(heart_image, (725, 0))
         elif game.lives == 1:
             screen.blit(heart_image, (691, 0))
+
+
 
         screen.blit(scores, (25, 25))
         score_point = my_font.render(str(game.score), False, (0, 227, 160))
