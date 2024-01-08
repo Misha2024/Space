@@ -31,6 +31,7 @@ menu = Menu()
 menu.append_option("Hello, world!", lambda: print("Hello< world!"))
 menu.append_option('Quit', quit)
 menu.append_option("play", game.r)
+menu.append_option(('Рекорд ' + str(game.records)), game.records)
 
 while True:
     for event in pygame.event.get():
