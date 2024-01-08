@@ -3,6 +3,11 @@ from spaceship import Spaceship
 from asteroid import Asteroid
 
 
+import pygame
+from spaceship import Spaceship
+from asteroid import Asteroid
+
+
 class Game:
     def __init__(self, screen_width, screen_height):
         self.screen_width = screen_width
@@ -12,7 +17,7 @@ class Game:
         self.asteroids_group = pygame.sprite.Group()
         self.asteroids_group.add(Asteroid(self.screen_width, self.screen_height))
         self.lives = 3
-        self.run = True
+        self.run = False
         self.score = 0
         self.records = 0
         self.load_records()
@@ -66,3 +71,6 @@ class Game:
                 self.records = int(file.read())
         except FileNotFoundError:
             self.records = 0
+
+    def r(self):
+        self.run = True
