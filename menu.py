@@ -1,7 +1,6 @@
 import pygame
 
 pygame.init()
-
 ARIAL_50 = pygame.font.SysFont("Arial", 50)
 
 
@@ -10,6 +9,9 @@ class Menu:
         self._option_surfaces = []
         self._callbacks = []
         self._current_option_index = 0
+        self.image = pygame.image.load('graphics/menu.jpg')
+        self.white = (255, 255, 255)
+        self.black = (0, 0, 0)
 
     def append_option(self, option, callback):
         self._option_surfaces.append(ARIAL_50.render(option, True, (255, 255, 255)))

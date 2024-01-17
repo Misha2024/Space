@@ -1,12 +1,9 @@
 import pygame
 from spaceship import Spaceship
 from asteroid import Asteroid
-
-
-import pygame
-from spaceship import Spaceship
-from asteroid import Asteroid
+from asteroid import Enemy
 from menu import Menu
+import random
 
 
 class Game:
@@ -16,7 +13,8 @@ class Game:
         self.spaceship_group = pygame.sprite.GroupSingle()
         self.spaceship_group.add(Spaceship(self.screen_width, self.screen_height))
         self.asteroids_group = pygame.sprite.Group()
-        self.asteroids_group.add(Asteroid(self.screen_width, self.screen_height))
+        self.asteroids_group.add(Asteroid(self.screen_width, self.screen_height, random.randint(0, 2)))
+        self.enemy_group = pygame.sprite.GroupSingle()
         self.lives = 3
         self.run = False
         self.score = 0
@@ -35,6 +33,11 @@ class Game:
                     self.record()
                     self.killed_music.play()
                     bullet_sprite.kill()
+                if pygame.sprite.spritecollide(bullet_sprite, self.enemy_group, True):
+                    self.score += 5
+                    self.record()
+                    self.killed_music.play()
+                    bullet_sprite.kill()
         if self.asteroids_group:
             for asteroids_sprite in self.asteroids_group:
                 if pygame.sprite.spritecollide(asteroids_sprite, self.spaceship_group, False):
@@ -50,6 +53,7 @@ class Game:
                 if pygame.sprite.spritecollide(asteroid, self.spaceship_group, False):
                     self.game_over()
                     self.score = 0
+
     def game_over(self):
         self.run = False
         self.lives = 3
@@ -75,5 +79,11 @@ class Game:
         except FileNotFoundError:
             self.records = 0
 
-    def r(self):
+    def menus(self):
         self.run = True
+
+    def pause(self):
+        self.run = False
+
+    def create_enemy(self):
+        self.enemy_group.add(Enemy(self.screen_width))
